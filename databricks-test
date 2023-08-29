@@ -1,0 +1,15 @@
+from databricks import sql
+import os
+
+connection = sql.connect(
+                        server_hostname = "934705877203346.6.gcp.databricks.com",
+                        http_path = "/sql/1.0/warehouses/e0af115cb9d98fcf",
+                        access_token = "dapibbd63b938523405887a87cec4e81b0a2")
+
+cursor = connection.cursor()
+
+cursor.execute("SELECT * from range(10)")
+print(cursor.fetchall())
+
+cursor.close()
+connection.close()

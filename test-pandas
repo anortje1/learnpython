@@ -1,0 +1,49 @@
+import requests
+import json
+import pandas as pd
+import matplotlib.pyplot as plt
+
+'''api_url = "https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json"
+_cars = response.json()
+response = requests.get(api_url)
+print( response.ok )
+cars = _cars.get( "Results")
+for car in cars:
+    print( car )
+    
+df = pd.DataFrame(movies, columns=["Make_ID", "Make_Name"])
+df.info()
+
+df.head()
+makes = df['Make_Name'].value_counts()
+df['Make_Name'].value_counts().plot.bar()
+plt.show()
+'''
+
+
+# This section looks a Noble Laureates
+
+# {"laureates":[{"id":"1","firstname":"Wilhelm Conrad","surname":"R\u00f6ntgen","born":"1845-03-27","died":"1923-02-10","bornCountry":"Prussia (now Germany)",
+# "bornCountryCode":"DE","bornCity":"Lennep (now Remscheid)","diedCountry":"Germany","diedCountryCode":"DE","diedCity":"Munich","gender":"male",
+# "prizes":[{"year":"1901","category":"physics","share":"1","motivation":"\"in recognition of the extraordinary services he has rendered by the discovery of the 
+# remarkable rays subsequently named after him\"","affiliations":[{"name":"Munich University","city":"Munich","country":"Germany"}]}]}
+# 
+api_url = "https://api.nobelprize.org/v1/laureate.json"
+response = requests.get(api_url)
+print( response.ok )
+# _data in the whole http response
+_data = response.json()
+# Get the json data from the response
+data = _data.get( "laureates")
+#for element in data:
+#    print( element )
+
+df = pd.DataFrame(data, columns=["bornCountry", "prizes"])
+df.info()
+
+df.head()
+country = df['bornCountry'].value_counts()
+df['bornCountry'].value_counts().sort_values( ascending=False)[:30].plot.bar()
+plt.show()
+
+df.head()
